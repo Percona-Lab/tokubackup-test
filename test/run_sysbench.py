@@ -1,8 +1,10 @@
 import click
 from subprocess import Popen
-#from config.config_reader import ConfigReader
-#from config import config_reader
-from config.config_reader import ConfigReader
+#from readconfig.config_reader import ConfigReader
+#from readconfig import config_reader
+#from readconfig.config_reader import ConfigReader
+#import readconfig
+from readconfig.config_reader import ConfigReader
 
 
 class SysbenchRun(ConfigReader):
