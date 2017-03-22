@@ -24,6 +24,7 @@ class SysbenchRun(config_reader.ConfigReader):
                 return True
             else:
                 print("Failed to create specified database!")
+                print(output)
                 return False
         else:
             new_command = backup_command_connection.format(
@@ -38,6 +39,7 @@ class SysbenchRun(config_reader.ConfigReader):
                 return True
             else:
                 print("Failed to create specified database!")
+                print(output)
                 return False
 
 
