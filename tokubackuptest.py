@@ -1,4 +1,4 @@
-from test.run_sysbench import SysbenchRun
+from tbtests.run_sysbench import SysbenchRun
 import click
 
 

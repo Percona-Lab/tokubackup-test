@@ -1,1 +1,1 @@
-all = ["readconfig", "test"]
+all = ["readconfig", "tbtests"]
