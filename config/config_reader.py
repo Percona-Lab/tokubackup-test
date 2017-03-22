@@ -1,5 +1,6 @@
 from general_conf.generalops import GeneralClass
 import configparser
+import test
 
 
 class ConfigReader(GeneralClass):

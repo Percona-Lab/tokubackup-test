@@ -1,10 +1,11 @@
 import click
 from subprocess import Popen
 #from config.config_reader import ConfigReader
-from config import config_reader
+#from config import config_reader
+from config.config_reader import ConfigReader
 
 
-class SysbenchRun(config_reader.ConfigReader):
+class SysbenchRun(ConfigReader):
 
     def __init__(self, config):
         self.conf = config
