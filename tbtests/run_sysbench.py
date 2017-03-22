@@ -9,14 +9,16 @@ class SysbenchRun(config_reader.ConfigReader):
         super().__init__(self.conf)
 
     def create_sysbench_db(self):
-        backup_command_connection = '{} -u{} --password={} --host={}'
+        backup_command_connection = '{} -u{} --password={} --host={} --port={} --socket={}'
         execute = " -e 'create database {}'"
         if hasattr(self, 'sysbench_db'):
             new_command = backup_command_connection.format(
                             self.mysql,
                             self.mysql_user,
                             self.mysql_password,
-                            self.mysql_host) + execute.format(self.sysbench_db)
+                            self.mysql_host,
+                            self.mysql_port,
+                            self.mysql_socket) + execute.format(self.sysbench_db)
             status, output = getstatusoutput(new_command)
 
             if status == 0:
