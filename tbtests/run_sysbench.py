@@ -46,8 +46,6 @@ class SysbenchRun(config_reader.ConfigReader):
 
 
 
-
-
     def create_sysbench_command(self, sysbench_action):
         command = "sysbench  %s" \
                           " --mysql-db=%s " \
@@ -58,7 +56,8 @@ class SysbenchRun(config_reader.ConfigReader):
                                        self.mysql_socket, sysbench_action)
         return general_command
 
-    def run_sysbench(self, command_to_run):
+
+    def run_sysbench_prepare(self, command_to_run):
 
         if self.create_sysbench_db():
             process = Popen(
@@ -66,4 +65,12 @@ class SysbenchRun(config_reader.ConfigReader):
                 stdin=None,
                 stdout=None,
                 stderr=None)
+
+    def run_sysbench_run(self, command_to_run):
+
+        process = Popen(
+            command_to_run,
+            stdin=None,
+            stdout=None,
+            stderr=None)
 

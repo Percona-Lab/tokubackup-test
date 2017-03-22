@@ -25,11 +25,11 @@ def all_procedure(prepare, run, defaults_file):
     elif prepare:
         obj = SysbenchRun(defaults_file)
         command_to_run = obj.create_sysbench_command(sysbench_action="prepare")
-        obj.run_sysbench(command_to_run=shlex.split(command_to_run))
+        obj.run_sysbench_prepare(command_to_run=shlex.split(command_to_run))
     elif run:
         obj = SysbenchRun(defaults_file)
         command_to_run = obj.create_sysbench_command(sysbench_action="run")
-        obj.run_sysbench(command_to_run=shlex.split(command_to_run))
+        obj.run_sysbench_run(command_to_run=shlex.split(command_to_run))
 
 
 
