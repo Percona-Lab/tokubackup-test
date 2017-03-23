@@ -73,11 +73,27 @@ class SysbenchRun(config_reader.ConfigReader):
                 print(output)
                 return False
 
+
+    def drop_sysbench_db(self, db):
+        execute_drop = "drop database {}"
+        command = self.create_mysql_client_command(execute_drop.format(db))
+        status, output = getstatusoutput(command)
+
+        if status == 0:
+            print("Database Droppped!")
+            return True
+        else:
+            print("Failed to drop specified database!")
+            print(output)
+            return False
+
+
     def create_sysbench_db(self):
         """Creating sysbench database; specified one or default 'sbtest'"""
-        execute_drop = "drop database {}"
+
         execute_create = "create database {}"
-        if self.check_sysbench_database() == 1:
+        status_db = self.check_sysbench_database()
+        if status_db == 1:
             if hasattr(self, 'sysbench_db'):
 
                 status, output = getstatusoutput(
@@ -101,11 +117,13 @@ class SysbenchRun(config_reader.ConfigReader):
                     print("Failed to create specified database!")
                     print(output)
                     return False
-        elif self.check_sysbench_database() == 2:
+        elif status_db == 2:
             if hasattr(self, 'sysbench_db'):
+                # Droppping database before creating
+                self.drop_sysbench_db(self.sysbench_db)
 
                 status, output = getstatusoutput(
-                    self.create_mysql_client_command(execute_drop.format(self.sysbench_db)))
+                    self.create_mysql_client_command(execute_create.format(self.sysbench_db)))
 
                 if status == 0:
                     print("Database Droppped!")
@@ -115,8 +133,11 @@ class SysbenchRun(config_reader.ConfigReader):
                     print(output)
                     return False
             else:
+                # Droppping database before creating
+                self.drop_sysbench_db('sbtest')
+
                 status, output = getstatusoutput(
-                    self.create_mysql_client_command(execute_drop.format('sbtest')))
+                    self.create_mysql_client_command(execute_create.format('sbtest')))
 
                 if status == 0:
                     print("Database Dropped!")
