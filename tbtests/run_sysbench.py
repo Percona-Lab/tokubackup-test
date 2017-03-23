@@ -48,10 +48,10 @@ class SysbenchRun(config_reader.ConfigReader):
             print(command)
             status, output = getstatusoutput(command)
 
-            if status == 0 and output == 0:
+            if status == 0 and "0" in output:
                 print("There is no such database!")
                 return 1
-            elif status == 0 and output == 1:
+            elif status == 0 and "1" in output:
                 print("The specified database already there!")
                 return 2
             else:
@@ -62,10 +62,10 @@ class SysbenchRun(config_reader.ConfigReader):
             command = self.create_mysql_client_command(execute.format('sbtest'))
             status, output = getstatusoutput(command)
 
-            if status == 0 and output == 0:
+            if status == 0 and "0" in output:
                 print("There is no such database!")
                 return 1
-            elif status == 0 and output == 1:
+            elif status == 0 and "1" in output:
                 print("The specified database already there!")
                 return 2
             else:
