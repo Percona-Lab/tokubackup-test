@@ -126,10 +126,10 @@ class SysbenchRun(config_reader.ConfigReader):
                     self.create_mysql_client_command(execute_create.format(self.sysbench_db)))
 
                 if status == 0:
-                    print("Database Droppped!")
+                    print("Database Created!")
                     return True
                 else:
-                    print("Failed to drop specified database!")
+                    print("Failed to create specified database!")
                     print(output)
                     return False
             else:
@@ -158,7 +158,7 @@ class SysbenchRun(config_reader.ConfigReader):
         return general_command
 
     def run_sysbench_prepare(self, command_to_run):
-
+        """Running sysbench with prepare"""
         if self.create_sysbench_db():
             process = Popen(
                 command_to_run,
@@ -167,7 +167,7 @@ class SysbenchRun(config_reader.ConfigReader):
                 stderr=None)
 
     def run_sysbench_run(self, command_to_run):
-
+        """Running sysbench with run"""
         process = Popen(
             command_to_run,
             stdin=None,
