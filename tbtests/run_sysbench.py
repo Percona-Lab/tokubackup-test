@@ -41,7 +41,7 @@ class SysbenchRun(config_reader.ConfigReader):
     def check_sysbench_database(self):
         """Check if sysbench database exists or not"""
 
-        execute = " -e 'SELECT count(*) FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = \'{}\''"
+        execute = "SELECT count(*) FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = '{}'"
 
         if hasattr(self, 'sysbench_db'):
             command = self.create_mysql_client_command(execute.format(self.sysbench_db))
