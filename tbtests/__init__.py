@@ -1,1 +1,1 @@
-all = ["run_sysbench"]
+all = ["run_sysbench", "run_backup"]
