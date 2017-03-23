@@ -44,9 +44,9 @@ class SysbenchRun(config_reader.ConfigReader):
         execute = " -e 'SELECT count(*) FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = \'{}\''"
 
         if hasattr(self, 'sysbench_db'):
-
-            status, output = getstatusoutput(
-                self.create_mysql_client_command(execute.format(self.sysbench_db)))
+            command = self.create_mysql_client_command(execute.format(self.sysbench_db))
+            print(command)
+            status, output = getstatusoutput(command)
 
             if status == 0 and output == 0:
                 print("There is no such database!")
@@ -59,9 +59,8 @@ class SysbenchRun(config_reader.ConfigReader):
                 print(output)
                 return False
         else:
-
-            status, output = getstatusoutput(
-                self.create_mysql_client_command(execute.format('sbtest')))
+            command = self.create_mysql_client_command(execute.format('sbtest'))
+            status, output = getstatusoutput(command)
 
             if status == 0 and output == 0:
                 print("There is no such database!")
