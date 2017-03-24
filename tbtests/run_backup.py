@@ -18,7 +18,7 @@ class BackupRun(CheckMySQLEnvironment):
                               datetime.now().strftime('%Y-%m-%d_%H-%M-%S'))
         try:
             # Creating backup directory
-            makedirs(new_backup_dir)
+            makedirs(new_backup_dir, exist_ok=True)
             return new_backup_dir
         except Exception as err:
             print("Something went wrong in create_backup_directory(): {}".format(err))
