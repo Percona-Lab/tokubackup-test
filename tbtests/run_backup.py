@@ -1,8 +1,6 @@
 from backup.backup_calculation import CheckMySQLEnvironment
 from os import makedirs
 from os.path import join
-from datetime import datetime
-from time import sleep
 
 class BackupRun(CheckMySQLEnvironment):
     def __init__(self, config):

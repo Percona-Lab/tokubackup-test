@@ -35,7 +35,8 @@ def all_procedure(prepare, run, defaults_file):
         obj.run_sysbench_run(command_to_run=shlex.split(command_to_run))
         sleep(5)
         backup_obj = BackupRun(defaults_file)
-        workers = [threading.Thread(target=backup_obj.run_all(backup_dir="thread_"+str(i)), name="thread_"+str(i)) for i in range(0,100)]
+        workers = [threading.Thread(target=backup_obj.run_all(backup_dir="thread_"+str(i)), name="thread_"+str(i))
+                   for i in range(int(obj.tb_thread))]
         [worker.start() for worker in workers]
         [worker.join() for worker in workers]
 
