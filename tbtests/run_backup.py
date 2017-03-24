@@ -2,14 +2,13 @@ from backup.backup_calculation import CheckMySQLEnvironment
 from os import makedirs
 from os.path import join
 from datetime import datetime
-from threading import Lock
 from time import sleep
 
 class BackupRun(CheckMySQLEnvironment):
     def __init__(self, config):
         self.conf = config
         super().__init__(self.conf)
-        self.mutex = Lock()
+
 
     def create_backup_directory(self):
         """
@@ -27,8 +26,6 @@ class BackupRun(CheckMySQLEnvironment):
 
 
     def run_all(self):
-        self.mutex.acquire(1)
         backupdir = self.create_backup_directory()
         sleep(1)
         self.run_backup(backup_dir=backupdir)
-        self.mutex.release()
