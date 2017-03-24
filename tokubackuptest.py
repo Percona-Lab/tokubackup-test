@@ -3,6 +3,7 @@ from tbtests.run_backup import BackupRun
 import click
 import shlex
 from time import sleep
+import threading
 
 
 @click.command()
@@ -34,7 +35,9 @@ def all_procedure(prepare, run, defaults_file):
         obj.run_sysbench_run(command_to_run=shlex.split(command_to_run))
         sleep(5)
         backup_obj = BackupRun(defaults_file)
-        backup_obj.run_all()
+        workers = [threading.Thread(target=backup_obj.run_all(), name="thread_"+str(i)) for i in range(0,100)]
+        [worker.start() for worker in workers]
+        [worker.join() for worker in workers]
 
 
 
