@@ -8,6 +8,11 @@ import threading
 
 @click.command()
 @click.option(
+    '--backup',
+    is_flag=True,
+    help="Take backup"
+)
+@click.option(
     '--prepare',
     is_flag=True,
     help="Run sysbench prepare")
@@ -22,13 +27,23 @@ import threading
     default='/etc/tokubackup.conf',
     help="Read options from the given file")
 
-def all_procedure(prepare, run, defaults_file):
+def all_procedure(backup, prepare, run, defaults_file):
     if (not prepare) and (not defaults_file) and (not run):
         print("ERROR: you must give an option, run with --help for available options")
     elif prepare:
         obj = SysbenchRun(defaults_file)
         command_to_run = obj.create_sysbench_command(sysbench_action="prepare")
         obj.run_sysbench_prepare(command_to_run=shlex.split(command_to_run))
+    elif prepare and backup:
+        obj = SysbenchRun(defaults_file)
+        command_to_run = obj.create_sysbench_command(sysbench_action="prepare")
+        obj.run_sysbench_prepare(command_to_run=shlex.split(command_to_run))
+        sleep(15)
+        backup_obj = BackupRun(defaults_file)
+        workers = [threading.Thread(target=backup_obj.run_all(backup_dir="thread_" + str(i)), name="thread_" + str(i))
+                   for i in range(int(obj.tb_thread))]
+        [worker.start() for worker in workers]
+        [worker.join() for worker in workers]
     elif run:
         obj = SysbenchRun(defaults_file)
         command_to_run = obj.create_sysbench_command(sysbench_action="run")
