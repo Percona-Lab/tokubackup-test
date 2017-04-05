@@ -45,25 +45,23 @@ class BackupRun(CheckMySQLEnvironment):
             if hasattr(self, 'mysql_socket'):
                 backup_command_connection += ' --socket={}'
                 backup_command_connection += backup_command_execute
-                new_backup_command = shlex.split(
-                    backup_command_connection.format(
+                new_backup_command = backup_command_connection.format(
                         self.mysql,
                         self.mysql_user,
                         self.mysql_password,
                         self.mysql_host,
                         self.mysql_socket,
-                        backupdir))
+                        backupdir)
             else:
                 backup_command_connection += ' --port={}'
                 backup_command_connection += backup_command_execute
-                new_backup_command = shlex.split(
-                    backup_command_connection.format(
+                new_backup_command = backup_command_connection.format(
                         self.mysql,
                         self.mysql_user,
                         self.mysql_password,
                         self.mysql_host,
                         self.mysql_port,
-                        backupdir))
+                        backupdir)
             # Do not return anything from subprocess
             print(
                 "Running backup command => %s" %
