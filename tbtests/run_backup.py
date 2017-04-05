@@ -65,7 +65,7 @@ class BackupRun(CheckMySQLEnvironment):
             # Do not return anything from subprocess
             print(
                 "Running backup command => %s" %
-                (' '.join(new_backup_command)))
+                (''.join(new_backup_command)))
 
             status, output = subprocess.getstatusoutput(new_backup_command)
             if status == 0:
