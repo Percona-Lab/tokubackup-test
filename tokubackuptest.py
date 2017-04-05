@@ -42,7 +42,7 @@ def all_procedure(backup, prepare, run, defaults_file):
         print("WARN: starting backup process. This is not a multithreaded run, it is in loop")
         backup_obj = BackupRun(defaults_file)
         for i in range(int(obj.tb_thread)):
-            backup_obj.run_all(backup_dir="thread_" + str(i))
+            backup_obj.run_backup_with_output(backup_dir="thread_" + str(i))
 
     elif run:
         obj = SysbenchRun(defaults_file)
