@@ -21,3 +21,18 @@ class ConfigReader(GeneralClass):
         if 'sysbench_db' in STRESS:
             self.sysbench_db = STRESS['sysbench_db']
         ######################################################
+        SLAVE = con['Slave']
+        if 'mysql' in SLAVE:
+            self.mysql_slv = SLAVE['mysql']
+        if 'user' in SLAVE:
+            self.user_slv = SLAVE['user']
+        if 'password' in SLAVE:
+            self.password_slv = SLAVE['password']
+        if 'port' in SLAVE:
+            self.port_slv = SLAVE['port']
+        if 'socket' in SLAVE:
+            self.socket_slv = SLAVE['socket']
+        if 'host' in SLAVE:
+            self.host_slv = SLAVE['host']
+        if 'datadir' in SLAVE:
+            self.datadir_slv = SLAVE['datadir']

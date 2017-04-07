@@ -159,6 +159,7 @@ class SysbenchRun(config_reader.ConfigReader):
 
     def run_sysbench_prepare(self, command_to_run):
         """Running sysbench with prepare"""
+        print("The following command will be executed -> %s" % command_to_run)
         if self.create_sysbench_db():
             process = Popen(
                 command_to_run,
@@ -168,6 +169,7 @@ class SysbenchRun(config_reader.ConfigReader):
 
     def run_sysbench_run(self, command_to_run):
         """Running sysbench with run"""
+        print("The following command will be executed -> %s" % command_to_run)
         process = Popen(
             command_to_run,
             stdin=None,
