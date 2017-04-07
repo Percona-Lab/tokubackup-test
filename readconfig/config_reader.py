@@ -27,7 +27,7 @@ class ConfigReader(GeneralClass):
         if 'user' in SLAVE:
             self.user_slv = SLAVE['user']
         if 'password' in SLAVE:
-            self.passsword_slv = SLAVE['password']
+            self.password_slv = SLAVE['password']
         if 'port' in SLAVE:
             self.port_slv = SLAVE['port']
         if 'socket' in SLAVE:

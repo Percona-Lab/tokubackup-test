@@ -1,10 +1,10 @@
-from backup.backup_calculation import CheckMySQLEnvironment
 from os import makedirs
 from os.path import join
 import shlex
 import subprocess
+from readconfig import config_reader
 
-class BackupRun(CheckMySQLEnvironment):
+class BackupRun(config_reader.ConfigReader):
     def __init__(self, config):
         self.conf = config
         super().__init__(self.conf)
